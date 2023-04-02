@@ -1,4 +1,3 @@
-
 ---
 layout: default
 title: Software
@@ -9,3 +8,4 @@ permalink: /docs/software
 
 # Software
 
+Here you will find general info about Software 
