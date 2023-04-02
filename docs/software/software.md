@@ -9,9 +9,8 @@ permalink: /docs/software
 
 # Software
 
-Here you will find general info about Software 
 
-Most software used in this project was installed and run trough conda environments. Please check the conda documentation in their source page. Below are listed environment names and tools installed within them. Tools and environments are then used, mentioned and linked within the other sections in this repository.
+Most software used in this project was installed and run trough conda environments. Please check the [conda documentation](https://docs.conda.io/en/latest/) in their source page. Below are listed environment names and tools installed within them. Tools and environments are then used, mentioned and linked within the other sections in this repository.
 
 ## Conda
 
@@ -34,7 +33,7 @@ conda config --add channels conda-forge
 
 ## sra-toolkit
 
-This toolkit can be used to download public datasets from the National Centre for Biotechnology Information (NCBI), specifically, from the Sequence Read Archive (SRA)
+This toolkit can be used to download public datasets from the National Centre for Biotechnology Information [(NCBI)](https://www.ncbi.nlm.nih.gov/), specifically, from the Sequence Read Archive [(SRA)](https://www.ncbi.nlm.nih.gov/sra).
 
 ```bash
 conda create --name sratk
@@ -44,7 +43,7 @@ conda install -c bioconda sra-tools
 
 ## longqc
 
-LongQC is a tool for the data quality control of the PacBio and ONT long reads. It was mainly used to make diagnostic plots altough it has many more functionalities. Check out https://github.com/yfukasawa/LongQC most instructions below were taken from there, except for a few workarounds
+LongQC is a tool for the data quality control of the PacBio and ONT long reads. It was mainly used to make diagnostic plots altough it has many more functionalities. Check out <https://github.com/yfukasawa/LongQC>, most instructions below were taken from there except for a few workarounds
 
 ```bash
 conda create --name LongQC
@@ -72,7 +71,7 @@ cd LongQC/minimap2-coverage && make
 
 # if the following error is found 
 # ImportError: libcrypto.so.1.1: cannot open shared object file: No such file or directory
-# workaround https://github.com/merenlab/anvio/issues/1479
+# workaround from https://github.com/merenlab/anvio/issues/1479
 
 # some quick and dirty tricks, sorry if you cannot do the same but this library can be annoying
 cp /data/raul/software/miniconda3/envs/vc/lib/libcrypto.so.1.1 /data/raul/software/miniconda3/envs/LongQC/lib/.
@@ -84,7 +83,7 @@ ln -s libcrypto.so.1.1 libcrypto.so.1.0.0
 
 ## filtlong
 
-Filtlong is a tool for filtering long reads by quality and length. It can take a set of long reads and produce a smaller, arguably better subset. Check out https://github.com/rrwick/Filtlong
+Filtlong is a tool for filtering long reads by quality and length. It can take a set of long reads and produce a smaller, arguably better subset. Check out <https://github.com/rrwick/Filtlong>.
 
 ```bash
 git clone https://github.com/rrwick/Filtlong.git
@@ -95,7 +94,7 @@ make -j
 
 ## rasusa
 
-This tool takes its name from random sub-sampling. As opossed to filtlong, it better preserves the read length ditribution as it does not only take the X-longest reads but takes a random sample which satisfies the condition of a certain amount of bases (i.e. target coverage)
+This tool takes its name from random sub-sampling. As opossed to filtlong, it better preserves the read length ditribution as it does not only take the X-longest reads but takes a random sample which satisfies the condition of a certain amount of bases (i.e. target coverage). Check out <https://github.com/mbhall88/rasusa>.
 
 ```bash
 conda create -n rasusa
@@ -120,7 +119,7 @@ unzip gatk-4.3.0.0.zip
 
 ## R
 
-R here is mainly used for plotting. Installing it within conda has the advantage of avoiding the need of setting up alternative/custom package locations. Please checkout https://docs.anaconda.com/anaconda/user-guide/tasks/using-r-language/
+R here is mainly used for plotting. Installing it within conda has the advantage of avoiding the need of setting up alternative/custom package locations. Please checkout <https://docs.anaconda.com/anaconda/user-guide/tasks/using-r-language/>.
 
 ```bash
 conda create --name r_env
@@ -166,7 +165,7 @@ conda install -c bioconda mummer
 
 ## fastani
 
-Fast implementation of an Average Nucleotide Identity calculation used by NCBI
+Fast implementation of an Average Nucleotide Identity [(ANI)](https://ncbiinsights.ncbi.nlm.nih.gov/2022/05/27/ani-for-assembly-validation/) calculation used by NCBI for assembly validation.
 
 ```bash
 conda create --name fastANI
@@ -179,7 +178,7 @@ conda install -c conda-forge biopython
 
 ## circos
 
-Original Perl-based implementation of circos, please check http://circos.ca/ for documentation. Includes mummer as it is used within wrapper perl scripts to get alignments and coordinates to display in the plots. 
+Original Perl-based implementation of circos, please check <http://circos.ca/> for documentation. Includes mummer as it is used within wrapper perl scripts to get alignments and coordinates to display in the plots. 
 
 ```bash
 conda create --name circos
@@ -205,7 +204,7 @@ conda install -c conda-forge biopython
 
 ## genomescope2
 
-Estimate genome heterozygosity, repeat content, and size from sequencing reads using a kmer-based statistical approach. Check https://www-nature-com.tudelft.idm.oclc.org/articles/s41467-020-14998-3 and https://github.com/tbenavi1/genomescope2.0
+Estimate genome heterozygosity, repeat content, and size from sequencing reads using a kmer-based statistical approach. Check out <https://github.com/tbenavi1/genomescope2.0>, comes with its own NAture methods paper.
 
 ```bash
 conda create --name genomescope2
@@ -216,7 +215,7 @@ conda install genomescope2
 
 ## smudgeplot
 
-This one is meant to be part of genomescope2 but it is actually not (yet?). Can be used with either jellyfish or KMC3 to do the kmer calculation.
+This one is meant to be part of genomescope2 but it is actually not (yet?). Can be used with either [jellyfish](https://github.com/gmarcais/Jellyfish) or [KMC3](https://github.com/refresh-bio/KMC) to do the kmer calculation.
 
 ```bash
 conda create --name smudgeplot
@@ -234,7 +233,7 @@ tar zxvf KMC3.2.1.linux.tar.gz
 
 ## nPhase
 
-Please checkout https://github.com/OmarOakheart/nPhase for detailed info. This particular version does not use an insane amount of memory as newer versions do. It was also modified to print out unphased reads, this is a personal modification so please check the phasing section for more details.
+Please checkout <https://github.com/OmarOakheart/nPhase> for detailed info. This particular version does not use an insane amount of memory as newer versions do. It was also modified to print out unphased reads, this is a personal modification so please check the phasing section for more details.
 
 ```bash
 conda create -n nPhaseMod python=3.8
@@ -246,7 +245,7 @@ conda install matplotlib=3.5.3
 
 ## iprscan
 
-Interproscan can be used to obtain a plethora of functional terms from biological sequences. Here is mainly used to complement funannotate, please check https://interproscan-docs.readthedocs.io/en/latest/index.html for more details
+Interproscan can be used to obtain a plethora of functional terms from biological sequences. Here is mainly used to complement funannotate, please check <https://interproscan-docs.readthedocs.io/en/latest/index.html> for more details
 
 ```bash
 mkdir /scratch/rortizmerino/software/interproscan
@@ -266,7 +265,7 @@ module load openjdk/11.0.12_7
 
 ## funannotate
 
-Warning: this is one of the most complicated installations ever, the steps below worked here but there is absolutelly no warranty they will work elsewhere, please check https://funannotate.readthedocs.io/en/latest/ and good luck!
+Warning: this is one of the most complicated installations ever, the steps below worked here but there is absolutelly no warranty they will work elsewhere, please check <https://funannotate.readthedocs.io/en/latest/> and good luck!
 
 ```bash
 # define a large enough folder to hold the packages
@@ -324,7 +323,7 @@ ete3 upgrade-external-tools paml
 
 ## mitohifi_env
 
-Assemble and annotate mitochondrial chromosome(s) from PacBio HiFi data. Checkout https://github.com/marcelauliano/MitoHiFi
+Assemble and annotate mitochondrial chromosome(s) from PacBio HiFi data. Checkout <https://github.com/marcelauliano/MitoHiFi>.
 
 ```bash
 git clone https://github.com/RemiAllio/MitoFinder.git
