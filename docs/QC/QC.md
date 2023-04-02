@@ -8,4 +8,4 @@ permalink: /docs/QC
 
 # Quality Control
 
-Here you will find general info about Quality Control steps implemented with either Illumina or PacBio HiFi DNA sequencing reads
+Here you will find general info about Quality Control steps implemented for PacBio HiFi DNA sequencing reads
