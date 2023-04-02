@@ -3,6 +3,7 @@ layout: default
 title: Software
 nav_order: 2
 has_children: true
+has_toc: true
 permalink: /docs/software
 ---
 
@@ -176,7 +177,7 @@ conda install python=3.8
 conda install -c conda-forge biopython
 ```
 
-# circos
+## circos
 
 Original Perl-based implementation of circos, please check http://circos.ca/ for documentation. Includes mummer as it is used within wrapper perl scripts to get alignments and coordinates to display in the plots. 
 
@@ -263,7 +264,7 @@ python3 setup.py interproscan.properties
 module load openjdk/11.0.12_7
 ```
 
-# funannotate
+## funannotate
 
 Warning: this is one of the most complicated installations ever, the steps below worked here but there is absolutelly no warranty they will work elsewhere, please check https://funannotate.readthedocs.io/en/latest/ and good luck!
 
