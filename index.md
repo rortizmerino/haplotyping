@@ -4,6 +4,8 @@ layout: home
 ---
 
 Genome assembly and annotation of hybrid yeast strains using high-fidelity long sequencing reads
+======
+
 
 Nowadays is commonly known that genome sequences are powerful tools to study and engineer living organisms. For instance, the yeast Saccharomyces cerevisiae, also known as brewer’s yeast, was the first eukaryotic organism whose genome was be fully sequenced and functionally annotated enabling a multitude of functional genomics efforts. As valuable as this knowledge has been, such reference genome mainly represents a laboratory strain artificially kept in a stable and simple configuration which is now known far from industrial strains with complex and plastic genomes. Here we used Pacific Biosciences high-fidelity (HiFi) reads, which are the most advanced genome sequencing technology available to date, to produce fully-resolved genome assemblies for 2 industrial yeast strains whose genomes are already known to be more complex than common laboratory strains. 
 
