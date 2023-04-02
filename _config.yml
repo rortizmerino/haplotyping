@@ -1,8 +1,8 @@
-title: Just the Docs Template
-description: A starter template for a Jeykll site using the Just the Docs theme!
+title: Haplotyping Repo
+description: Repository for haplotyping documentation and code
 theme: just-the-docs
 
-url: https://just-the-docs.github.io
+url: https://rortizmerino.github.io/haplotyping
 
 aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
+  Template Repository: https://github.com/rortizmerino/haplotyping
