@@ -1,6 +1,8 @@
 ---
 title: Home
 layout: home
+nav_order: 1
+has_children: true
 ---
 
 Genome assembly and annotation of hybrid yeast strains using high-fidelity long sequencing reads
