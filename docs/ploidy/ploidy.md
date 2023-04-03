@@ -39,3 +39,5 @@ Once the files are downladed, they can be used with the [`gscoper.sh`](https://g
 ```bash
 bash scripts/gscoper.sh -s <strain> -r ploidy/<strain> -p data/<strain>
 ```
+
+Warning: The path to KMC is hardcoded within `gscoper.sh` so please make sure to adapt it accordingly.
