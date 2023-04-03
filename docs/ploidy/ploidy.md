@@ -34,10 +34,10 @@ fasterq-dump --split-files --skip-technical --verbose SRR3265401
 fasterq-dump --split-files --skip-technical --verbose SRR3265463	
 ```
 
-Once the files are downladed, they can be used with the [`gscoper.sh`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/gscoper.sh) script to 1) run KMC to obtain a kmer distribution 2) run genomescope to get a profile and 3) run smudgeplot to get a ploidy profile. Below a sample command wich can be modified and used to run `gscoper.sh`
+Once the files are downladed, they can be used with the [`gscoper.sh`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/gscoper.sh) script to 1) run KMC to obtain a kmer distribution 2) run genomescope to get a profile and 3) run smudgeplot to get a ploidy profile. Below a sample command wich can be modified and used to run `gscoper.sh`.
 
 ```bash
 bash scripts/gscoper.sh -s <strain> -r ploidy/<strain> -p data/<strain>
 ```
-
+Where -s: strain ID, -r: directory in which to run the analysis, and -p: path to input data (fastq files).
 Warning: The path to KMC is hardcoded within `gscoper.sh` so please make sure to adapt it accordingly.
