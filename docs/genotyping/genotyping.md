@@ -56,6 +56,19 @@ Output files from the codes above can be used to make predefined plots using R. 
 source activate r_env
 ```
 
-Different Copy Number Variation (CNV) plots can be obtained depending on the type of reference genome used during the genotyping. In this project genome references used for CNV determination where mostly either two concatenated genomes, or the whole concatenated reference genomes for the Saccharomyces genus. [`plotAllSacchCov_bin_full.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plotAllSacchCov_bin_full.R) uses the whole concatenated reference genomes for the Saccharomyces genus, from there [`plotAllSacchCov_bin2.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plotAllSacchCov_bin2.R) can extract data relative to only 2 species (*S. cerevisiae* and *S. eubayanus* hardcoded), or the same information but only when 2 concatenated genomes where used as refererence [`plot2spCov_bin.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plot2spCov_bin.R)
+Different Copy Number Variation (CNV) plots can be obtained depending on the type of reference genome used during the genotyping. In this project genome references used for CNV determination where mostly either two concatenated genomes, or the whole concatenated reference genomes for the Saccharomyces genus. [`plotAllSacchCov_bin_full.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plotAllSacchCov_bin_full.R) uses the whole concatenated reference genomes for the Saccharomyces genus, from there [`plotAllSacchCov_bin2.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plotAllSacchCov_bin2.R) can extract data relative to only 2 species (*S. cerevisiae* and *S. eubayanus* hardcoded), or the same information but only when 2 concatenated genomes where used as refererence [`plot2spCov_bin.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plot2spCov_bin.R). All of them run similarly:
 
+```bash
+Rscript --vanilla <script>.R <tag> <path> <winlen>
+```
 
+Another predefined way to analysed filtered SNVs consists of Allele Frequency plots. [`plotVCF.SNVs_n_cov_bin_32_i.R`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/plotVCF.SNVs_n_cov_bin_32_i.R) produces these plots only for cases where *S. cerevisiae* and *S. eubayanus* were used, please be careful with hardcoded values. `plotVCF.SNVs_n_cov_bin_32_i.R` runs as follows:
+
+```bash
+Rscript --vanilla plotVCF.SNVs_n_cov_bin_32_i.R <tag> <path> <length>
+
+example:  Rscript --vanilla plotVCF.SNVs_n_cov_bin_32_i.R Scen_Seub CPOPY0_Scen_Seub 1kb
+
+optional: <first scaff> <last scaff> <lngstlen> <log|bin>
+example:  Rscript --vanilla plotVCF.SNVs_n_cov_bin.R S1_np_ph_v0 CPOPY0_S1_np_ph_v0 1kb 1 100 1600000
+```
