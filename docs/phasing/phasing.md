@@ -31,4 +31,4 @@ python <path>/nPhasePipeline_mod.py filter --sampleName ${LIB}_${REFNAME} --long
 python <path>/nPhasePipeline_mod.py filter --sampleName ${LIB}_${REFNAME} --longReads $LRLIBDIR/<>.fastq.gz --clusteredTSV nPhaseOUT/${LIB}_${REFNAME}/Phased/Cleaned/${LIB}_${REFNAME}/${LIB}_${REFNAME}_cleaned.clusterReadNames.tsv --output nPhaseOUT/${LIB}_${REFNAME}/Phased/Cleaned/${LIB}_${REFNAME}/cleanFastQ/
 ```
 
-Warning: all provided nPhase scripts must be located within the same <path>
+Warning: all provided nPhase scripts must be located within the same path
