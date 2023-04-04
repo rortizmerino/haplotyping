@@ -82,4 +82,8 @@ for FILE in "${FILES[@]}"; do
 done
  
 ```
-Warning: Please note this snippet was made to work on an nPhase output folder structure already processed to print unphased reads as describes in the Phasing section. It also has hardcoded references and parameters specific to *S. cerevisiae* (Scer) as its genome was used as reference. Phased read clusters are obtained given each reference chromosome, only chromosomes 1 and 16 are shown here and their corresponding sizes are used to set `--genome-size` parameters accordingly.
+Warning: Please note this snippet was made to work on an nPhase output folder structure already processed to print unphased reads as described in the Phasing section. It also has hardcoded references and parameters specific to *S. cerevisiae* (Scer) as its genome was used as reference. Phased read clusters are obtained given each reference chromosome, only chromosomes 1 and 16 are shown here and their corresponding sizes are used to set `--genome-size` parameters accordingly.
+
+Next step is ordering the scaffolds/contigs according to their synteny and parental origin. As strains used here were already known to be *S. cerevisiae* x *S. eubayanus* hybrids, a concatenated reference containing both genomes was used. A quick and dirty option for this syntenic ordering is to use r2cat. Pull requests are welcome in case a command-line option is available. Until then please visit this link <https://bibiserv.cebitec.uni-bielefeld.de/cgcat?id=cgcat_r2cat> to download and run the stand alone tool. Next steps work regardless of this syntenic ordering but actually doing it makes life easier.
+
+
