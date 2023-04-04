@@ -89,7 +89,48 @@ Next step is ordering the scaffolds/contigs according to their synteny and paren
 Amongst the 14 million possible futures for the genome assemblies, steps implemented here are 1) ensure the files are properly formatted, 2) calculate their Average Nucleotide Identity (ANI) against the *S. cerevisiae* reference genome, 3) draw a histogram out of those ANI values, 4) filter contigs/scaffolds by size, 5) draw a dotplot against the *S. cerevisiae* reference genome, and 6) combine the dotplot with the observed Illumina read coverage calculated and plotted in the Genotyping section. For the impatient, all these steps were automated in [`ANIpipe.sh`](https://github.com/rortizmerino/haplotyping/blob/main/scripts/ANIpipe.sh) which runs as follows:
 
 ```bash
-bash scripts/ANIpipe.sh SAMPLE SUFFIX METHOD LENGTH
+bash ANIpipe.sh SAMPLE SUFFIX METHOD LENGTH
 ```
 
-Where SAMPLE and SUFFIX are part of a folder name used to distinguish the assembly run, METHOD can be either flye or canu meaning the output of ither tool has to be included within the SAMPLE_SUFFIX folder, and LENGTH means the minimum length to keep (turn off with very small values such as 0 or 1).
+Where SAMPLE and SUFFIX are part of a folder name used to distinguish the assembly run, METHOD can be either flye or canu meaning the output of ither tool has to be included within the SAMPLE_SUFFIX folder, and LENGTH means the minimum length to keep (turn off with very small values such as 0 or 1). It also assumes all necessary input lies within a folder structure assembly/assembly/METHOD/SAMPLE_SUFFIX/ . Makes no sense? Well, hope it does once we go step by step.
+
+#!/usr/bin/bash
+
+
+```bash
+source activate biopython
+python scripts/fmtFasta.py -i assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.fasta -o assembly/${METHOD}/${SAMPLE}_${SUFFIX}/
+```
+
+```bash
+bash scripts/getAssemblyStats.sh ${SAMPLE} ${SUFFIX} ${METHOD}
+```
+
+```bash
+source activate fastANI
+python scripts/curateAssemblies.py -i assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.AssemblyStats.txt -d assembly/${METHOD}/${SAMPLE}_${SUFFIX}
+```
+
+```bash
+source activate r_env
+Rscript --vanilla scripts/ANIhist.R assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.ids_n_stats.txt assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}
+```
+
+```bash
+source activate biopython
+python scripts/fltrFasta.py -i assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.fasta -o assembly/${METHOD}/${SAMPLE}_${SUFFIX}/ -l ${LENGTH}
+mv assembly/${METHOD}/${SAMPLE}_${SUFFIX}/gt${LENGTH}kb.${SAMPLE}.r2cat.${METHOD}.fasta assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}.fasta
+```
+
+```bash
+source activate dotplotter
+cd assembly/${METHOD}/${SAMPLE}_${SUFFIX}
+cp ${SAMPLE}.r2cat.${METHOD}.ids_n_stats.txt ${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}.ids_n_stats.txt
+perl ../../../scripts/compareAssemblies_ANI.pl ../../../references/genomes/Scer_noMt.fasta ${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}.fasta
+```
+
+```bash
+source activate r_env
+cd ../../..
+Rscript --vanilla scripts/Dotplot_n_cov.R assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}_vs_Scer_noMt.ANI.jpeg genotyping/v4/${SAMPLE}_Scen_Seho_coverage_per1kb_ScSe.jpeg ${SAMPLE}_gt${LENGTH}kb_${METHOD}_ScSe_dotplot_n_cov.jpeg
+```
