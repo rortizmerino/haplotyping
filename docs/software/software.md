@@ -116,6 +116,25 @@ conda install -c bioconda samtools
 wget https://github.com/broadinstitute/gatk/releases/download/4.3.0.0/gatk-4.3.0.0.zip
 unzip gatk-4.3.0.0.zip
 ```
+## canu
+
+Canu has a rather simple installation, however, it is a complex piece of software built from an older one. It is now optimised for long reads although it can perform hybrid assemblies with short reads as well. Please have a look at their documentation <https://canu.readthedocs.io/en/latest/quick-start.html>.
+
+```bash
+cd /scratch/rortizmerino/software/
+curl -L https://github.com/marbl/canu/releases/download/v2.2/canu-2.2.Linux-amd64.tar.xz --output canu-2.2.Linux.tar.xz
+tar -xJf canu-2.2.*.tar.xz
+```
+
+## flye
+
+Similar to canu, flye can very well perform long read and hybrid genome assemblies. Its main difference consists in runtime and memory usage which are generally lower for flye. Furthermore, flye is not as good as canu at separating haplotypes so here was used to assemble phased reads which should already consist of separate haplotypes. Please have a look at their documentation <https://github.com/fenderglass/Flye>.
+
+```bash
+conda create -n flye
+conda activate flye
+conda install flye
+```
 
 ## R
 
