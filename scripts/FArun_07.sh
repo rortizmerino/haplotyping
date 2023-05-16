@@ -1,7 +1,5 @@
 #!/bin/sh
 
-#SBATCH --account=research-as-bt
-
 #SBATCH --job-name="FArun_07"
 #SBATCH --output=%x.%j.out
 #SBATCH --error=%x.%j.err
@@ -12,7 +10,6 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=20G		# 6 * 20 = 120G
 
-#SBATCH --mail-user=raul.ortiz@tudelft.nl
 #SBATCH --mail-type=ALL
 
 # load modules, environments, binaries, ...
