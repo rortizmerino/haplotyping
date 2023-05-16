@@ -94,27 +94,36 @@ bash ANIpipe.sh SAMPLE SUFFIX METHOD LENGTH
 
 Where SAMPLE and SUFFIX are part of a folder name used to distinguish the assembly run, METHOD can be either flye or canu meaning the output of ither tool has to be included within the SAMPLE_SUFFIX folder, and LENGTH means the minimum length to keep (turn off with very small values such as 0 or 1). It also assumes all necessary input lies within a folder structure assembly/assembly/METHOD/SAMPLE_SUFFIX/ . Makes no sense? Well, hope it does once we go step by step.
 
-#!/usr/bin/bash
-
+The first step is to format the fasta file so it can be used by downstream tools. [fmtFasta.py](https://github.com/rortizmerino/haplotyping/blob/main/scripts/fltrFasta.py) mainly check there are proper line breaks and headers.
 
 ```bash
 source activate biopython
 python scripts/fmtFasta.py -i assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.fasta -o assembly/${METHOD}/${SAMPLE}_${SUFFIX}/
 ```
 
+The SAMPLE and SUFFIX names are taken then as variables troughout the pipeline. 
+
+[getAssemblyStats.sh](https://github.com/rortizmerino/haplotyping/blob/main/scripts/getAssemblyStats.sh) writes a table with useful stats such as sample, seq_name, length, coverage, circularity, and repeatedness. Such stats are a combination of Flye and/or Canu output, hence the requirement of specifying the assembly METHOD as variable.
+
 ```bash
 bash scripts/getAssemblyStats.sh ${SAMPLE} ${SUFFIX} ${METHOD}
 ```
+
+[curateAssemblies.py](https://github.com/rortizmerino/haplotyping/blob/main/scripts/curateAssemblies.py) uses the stats table printed above to go through the assembly fasta, and the AssemblyStats to print individual fasta files per sequence and input files for fastANI to calculate their Average Nucleotide Identity against a reference genome and print their percentage identity. This way the individual sequences in the assembly can be distinguished by their closeness to the given reference.
 
 ```bash
 source activate fastANI
 python scripts/curateAssemblies.py -i assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.AssemblyStats.txt -d assembly/${METHOD}/${SAMPLE}_${SUFFIX}
 ```
 
+[ANIhist.R](https://github.com/rortizmerino/haplotyping/blob/main/scripts/ANIhist.R) draws a histogram using the ANI values per scaffold so cutoffs can be chosen for parental labeling.
+
 ```bash
 source activate r_env
 Rscript --vanilla scripts/ANIhist.R assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.r2cat.${METHOD}.ids_n_stats.txt assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}
 ```
+
+An optional step for filtering out short sequences can be used next with [fltrFasta.py](https://github.com/rortizmerino/haplotyping/blob/main/scripts/fltrFasta.py). A very low number (e.g. 1 or 0) can be used to turn this feature off, this value will be taken into the output file as a reminder.
 
 ```bash
 source activate biopython
@@ -122,12 +131,16 @@ python scripts/fltrFasta.py -i assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.
 mv assembly/${METHOD}/${SAMPLE}_${SUFFIX}/gt${LENGTH}kb.${SAMPLE}.r2cat.${METHOD}.fasta assembly/${METHOD}/${SAMPLE}_${SUFFIX}/${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}.fasta
 ```
 
+[compareAssemblies_ANI.pl](https://github.com/rortizmerino/haplotyping/blob/main/scripts/compareAssemblies_ANI.pl) draws a dotplot with the assembly against the chosen reference and colours the dots depending on their ANI values. It is a mummer and R wrapper so it requires loading mummer within the dotplotter environment, and [DotPlot_ANI.R](https://github.com/rortizmerino/haplotyping/blob/main/scripts/DotPlot_ANI.R)
+
 ```bash
 source activate dotplotter
 cd assembly/${METHOD}/${SAMPLE}_${SUFFIX}
 cp ${SAMPLE}.r2cat.${METHOD}.ids_n_stats.txt ${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}.ids_n_stats.txt
 perl ../../../scripts/compareAssemblies_ANI.pl ../../../references/genomes/Scer_noMt.fasta ${SAMPLE}.gt${LENGTH}kb.r2cat.${METHOD}.fasta
 ```
+
+Last, [Dotplot_n_cov.R](https://github.com/rortizmerino/haplotyping/blob/main/scripts/Dotplot_n_cov.R) combines the doptlot with the coverage plots available for said SAMPLE and SUFFIX.
 
 ```bash
 source activate r_env
